@@ -1,3 +1,3 @@
-module github.com/KyriakosMilad/kero-db
+module github.com/KyriakosMilad/memdb
 
 go 1.18
