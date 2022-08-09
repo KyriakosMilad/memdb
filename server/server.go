@@ -143,3 +143,19 @@ func (s *Server) write(c *client, str string) {
 	}
 	fmt.Println("client", c.id, direction, str)
 }
+
+func (s *Server) Stop() {
+	fmt.Println("\nstopping memdb")
+	fmt.Println("removing all clients")
+	s.removeAllClients()
+	fmt.Println("removed all clients successfully")
+	fmt.Println("saving database on the desk")
+	s.db.Save()
+	fmt.Println("closing the tcp listener")
+	err := s.l.Close()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("closed tcp listener successfully")
+	fmt.Println("exiting")
+}
