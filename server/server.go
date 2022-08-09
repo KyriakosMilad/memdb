@@ -44,3 +44,9 @@ func (s *Server) removeClient(c *client) {
 	delete(s.clients, c.id)
 	fmt.Println("client with id", c.id, "disconnected")
 }
+
+func (s *Server) removeAllClients() {
+	for _, c := range s.clients {
+		s.removeClient(c)
+	}
+}
