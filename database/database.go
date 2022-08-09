@@ -46,3 +46,14 @@ func (db *Database) Delete(key string) {
 	defer db.mu.Unlock()
 	delete(db.items, key)
 }
+
+func (db *Database) Save() {
+	f, err := os.Create(databaseDiskFile)
+	if err != nil {
+		fmt.Println("could not create database disk file", err.Error())
+	}
+	if err := json.NewEncoder(f).Encode(db.items); err != nil {
+		fmt.Println("could not encode database to disk file", err.Error())
+	}
+	fmt.Println("successfully saved database on the disk")
+}
