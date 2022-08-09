@@ -1,6 +1,9 @@
 package server
 
-import "net"
+import (
+	"github.com/KyriakosMilad/memdb/database"
+	"net"
+)
 
 type client struct {
 	id   int
@@ -12,4 +15,10 @@ func (c *client) disconnect() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+type Server struct {
+	l       net.Listener
+	db      *database.Database
+	clients map[int]*client
 }
