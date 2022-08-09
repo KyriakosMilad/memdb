@@ -22,3 +22,10 @@ type Server struct {
 	db      *database.Database
 	clients map[int]*client
 }
+
+func InitServer() *Server {
+	return &Server{
+		db:      database.InitDatabase(),
+		clients: map[int]*client{},
+	}
+}
