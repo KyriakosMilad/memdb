@@ -56,9 +56,9 @@ func (s *Server) removeAllClients() {
 	}
 }
 
-func (s *Server) Run() {
+func (s *Server) Run(port string) {
 	// Listen for incoming connections.
-	l, err := net.Listen("tcp", ":3636")
+	l, err := net.Listen("tcp", ":"+port)
 	if err != nil {
 		fmt.Println("Error listening:", err.Error())
 		os.Exit(1)
@@ -73,7 +73,7 @@ func (s *Server) Run() {
 			}
 		}
 	}(l)
-	fmt.Println("Listening on: :3636")
+	fmt.Println("Listening on: :" + port)
 
 	id := 0
 	for {
