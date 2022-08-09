@@ -40,3 +40,9 @@ func (db *Database) Get(key string) (string, bool) {
 	value, found := db.items[key]
 	return value, found
 }
+
+func (db *Database) Delete(key string) {
+	db.mu.Lock()
+	defer db.mu.Unlock()
+	delete(db.items, key)
+}
