@@ -27,3 +27,9 @@ func InitDatabase() *Database {
 	}
 	return &Database{items: items}
 }
+
+func (db *Database) Set(key, value string) {
+	db.mu.Lock()
+	defer db.mu.Unlock()
+	db.items[key] = value
+}
