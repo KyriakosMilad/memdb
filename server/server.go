@@ -35,3 +35,12 @@ func (s *Server) addClient(c *client) {
 	s.clients[c.id] = c
 	fmt.Println("client with id", c.id, "joined")
 }
+
+func (s *Server) removeClient(c *client) {
+	if _, ok := s.clients[c.id]; !ok {
+		return
+	}
+	c.disconnect()
+	delete(s.clients, c.id)
+	fmt.Println("client with id", c.id, "disconnected")
+}
