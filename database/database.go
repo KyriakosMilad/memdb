@@ -33,3 +33,10 @@ func (db *Database) Set(key, value string) {
 	defer db.mu.Unlock()
 	db.items[key] = value
 }
+
+func (db *Database) Get(key string) (string, bool) {
+	db.mu.RLock()
+	defer db.mu.RUnlock()
+	value, found := db.items[key]
+	return value, found
+}
