@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"github.com/KyriakosMilad/memdb/database"
 	"net"
 )
@@ -28,4 +29,9 @@ func InitServer() *Server {
 		db:      database.InitDatabase(),
 		clients: map[int]*client{},
 	}
+}
+
+func (s *Server) addClient(c *client) {
+	s.clients[c.id] = c
+	fmt.Println("client with id", c.id, "joined")
 }
