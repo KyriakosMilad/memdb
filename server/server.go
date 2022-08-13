@@ -19,8 +19,13 @@ type client struct {
 func (c *client) disconnect() {
 	err := c.conn.Close()
 	if err != nil {
-		panic(err)
+		if strings.Split(err.Error(), ": ")[1] != "use of closed network connection" {
+			panic("Can't disconnect:" + err.Error())
+		} else {
+			return
+		}
 	}
+	fmt.Println("client with id", c.id, "disconnected")
 }
 
 type Server struct {
@@ -47,7 +52,6 @@ func (s *Server) removeClient(c *client) {
 	}
 	c.disconnect()
 	delete(s.clients, c.id)
-	fmt.Println("client with id", c.id, "disconnected")
 }
 
 func (s *Server) removeAllClients() {
